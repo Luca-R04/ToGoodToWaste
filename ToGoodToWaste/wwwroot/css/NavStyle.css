@@ -1,0 +1,25 @@
+﻿.navbar {
+    background-color: #FF8200;
+}
+
+.nav-link {
+    color: black;
+}
+
+.navbar img:hover, .dropdown-item:hover, .Home:hover, .btn:hover {
+    transition: all .3s ease-in-out;
+    transform: scale(1.1);
+}
+
+.btn {
+    background-color: #FF8200 !important;
+}
+
+.Home {
+    text-decoration: none;
+    color: black;
+}
+
+.Home:hover {
+    color: black;
+}

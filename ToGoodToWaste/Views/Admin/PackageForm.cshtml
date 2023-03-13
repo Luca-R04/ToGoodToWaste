@@ -1,0 +1,84 @@
+﻿@model CreatePackageViewModel
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Aanmaken</title>
+    <link rel="stylesheet" href="~/css/NavStyle.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main_nav" aria-expanded="false" aria-label="Toggle navigation">
+                <img src="~/Images/Burger.png" class="profile">
+            </button>
+            <div class="collapse navbar-collapse" id="main_nav">
+                <ul class="navbar-nav">
+                    <a class="Home" asp-controller="Admin" asp-action="Select">Home</a>
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                    <a class="profile" asp-controller="Admin" asp-action="AdminPage"><img src="~/Images/userIcon.png" class="profile" style="width: 25px"></a>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="d-flex justify-content-center">
+        <form asp-controller="Admin" asp-action="CreatePackage" method="post" id="package-form">
+            <div class="form-group">
+                <label for="Name">Naam</label>
+                <input asp-for="package.Name" id="Name" name="package.Name" type="text" required="required" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="Price">Prijs</label>
+                <input asp-for="package.Price" name="package.Price" id="Price" type="text" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="Category">Categorie</label>
+                <div>
+                    <select asp-for="package.Category" id="Category" name="package.Category" required="required" class="custom-select">
+                        <option value=Brood>Brood</option>
+                        <option value=Warm>Warme maaltijd</option>
+                        <option value=Drank>Drank</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                @foreach (var checkbox in Model.checkBoxes)
+                {
+                    <div class="form-check">
+                        <input class="form-check-input"
+                           type="checkbox"
+                           value="@checkbox.product.ProductId"
+                           name="addedProducts"
+                           id="checkbox_@checkbox.product.ProductId"
+                           checked="@checkbox.IsChecked">
+                        <label class="form-check-label" for="checkbox_@checkbox.product.ProductId">
+                            @checkbox.Description
+                        </label>
+                    </div>
+                }
+            </div>
+            <div class="form-group">
+                <label for="Image">Afbeelding URL</label>
+                <input asp-for="package.Image" id="Image" name="package.Image" placeholder="https://www.website.com/afbeelding.jpg" type="text" required="required" class="form-control">
+            </div>
+            <div class="form-group py-2">
+                <label for="birthdaytime">Op te halen vanaf:</label>
+                <input asp-for="package.PickupTime" type="datetime-local" id="pickupTime" name="package.PickupTime" min="@Model.minTime" max="@Model.maxTime">
+            </div>
+            <div class="form-group pb-4">
+                <label for="birthdaytime">Op te halen tot:</label>
+                <input asp-for="package.EndTime" type="datetime-local" id="endTime" name="package.EndTime" min="@Model.minTime">
+            </div>
+            <div class="form-group text-center">
+                <button name="submit" type="submit" class="btn">Aanmaken</button>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

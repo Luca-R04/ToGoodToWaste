@@ -1,0 +1,41 @@
+﻿@model Employee
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gebruiker</title>
+    <link rel="stylesheet" href="~/css/NavStyle.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main_nav" aria-expanded="false" aria-label="Toggle navigation">
+                <img src="~/Images/Burger.png" class="profile">
+            </button>
+            <div class="collapse navbar-collapse" id="main_nav">
+                <ul class="navbar-nav">
+                    <a class="Home" asp-controller="Admin" asp-action="Select">Home</a>
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                    <a class="profile" asp-controller="Admin" asp-action="AdminPage"><img src="~/Images/userIcon.png" class="profile" style="width: 25px"></a>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="d-flex justify-content-center">
+        <div class="userInfo">
+            <h2>Huidige gebruiker:</h2>
+            <p>Naam: @Model.Name.</p>
+            <p>Naam: @Model.EmailAdress.</p>
+            <p>Locatie: @Model.Location.Building</p>
+        </div>
+    </div>
+    <div class="text-center">
+        <a class="log-out-btn btn" type="button" asp-controller="Home" asp-action="Logout">Uitloggen</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,54 @@
+﻿@model LocationViewModel
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Locatie</title>
+    <link rel="stylesheet" href="~/css/NavStyle.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main_nav" aria-expanded="false" aria-label="Toggle navigation">
+                <img src="~/Images/Burger.png" class="profile" alt="Menu">
+            </button>
+            <div class="collapse navbar-collapse" id="main_nav">
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link  dropdown-toggle" href="#" data-bs-toggle="dropdown">  Navigatie  </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" asp-controller="Home" asp-action="Location">Locatie</a></li>
+                            <li><a class="dropdown-item" asp-controller="Home" asp-action="Package">Producten</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                    <a class="profile" asp-controller="Home" asp-action="UserPage"><img src="~/Images/userIcon.png" class="profile" style="width: 25px"></a>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <h2 class="text-center">Kies een locatie:</h2>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 mb-4 mt-4 mx-auto h-100">
+                @foreach (Location l in Model?.Locations ?? Enumerable.Empty<Location>())
+                {
+                    <a asp-controller="home" asp-action="Package" asp-route-id="@l.LocationId">
+                        <div class="card" style="width:50%; float: left;">
+                            <img src="@l.Image" class="card-img-top" alt="@l.Building" style="height: 200px;">
+                            <div class="card-body">
+                                <p class="card-text">@l.Building</p>
+                            </div>
+                        </div>
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
+</body>
+</html>

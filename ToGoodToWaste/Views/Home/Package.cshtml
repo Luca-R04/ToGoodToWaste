@@ -1,0 +1,91 @@
+﻿@model PackageViewModel
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pakketten</title>
+    <link rel="stylesheet" href="~/css/NavStyle.css">
+    <link rel="stylesheet" href="~/css/PackageStyle.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main_nav" aria-expanded="false" aria-label="Toggle navigation">
+                <img src="~/Images/Burger.png" class="profile" alt="Menu">
+            </button>
+            <div class="collapse navbar-collapse" id="main_nav">
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link  dropdown-toggle" href="#" data-bs-toggle="dropdown">  Navigatie  </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" asp-controller="Home" asp-action="Location">Locatie</a></li>
+                            <li><a class="dropdown-item" asp-controller="Home" asp-action="Package">Producten</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                    <a class="profile" asp-controller="Home" asp-action="UserPage"><img src="~/Images/userIcon.png" class="profile" style="width: 25px"></a>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <h2 class="text-center">Beschikbare pakketten:</h2>
+
+    <div class="mx-auto" style="width: 50%;">
+        <form asp-action="Package" asp-controller="Home" method="post" id="apply-filter">
+            <div class="form-group">
+                <select name="Category" class="form-select form-select-sm" aria-label=".form-select-sm example" style="width: 25%;">
+                    <option selected>Geen Categorie</option>
+                    <option value="Brood">Brood</option>
+                    <option value="Warm">Warme maaltijd</option>
+                    <option value="Drank">Drank</option>
+                </select>
+                <div class="pt-2">
+                <input class="submit-btn btn" type="submit" id="filter" value="Zoek categorie">
+            </div>
+            </div>
+        </form>
+    </div>
+    @foreach (Package p in Model?.Packages ?? Enumerable.Empty<Package>())
+    {
+        <div class="pt-2 pb-2">
+            <div class="card mb-1 mx-auto" style="max-width: 50%;">
+                <a asp-controller="home" asp-action="PackageDetail" asp-route-id="@p.PackageId">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="@p.Image" class="img-fluid rounded-start" alt="@p.Name">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="mb-1 card-title">@p.Name</h5>
+                                <p class="mb-1 card-text">€ @p.Price</p>
+                                <p class="mb-2 card-text">
+                                    <small>
+                                        @foreach (var product in p.Products)
+                                        {
+                                            @product.Name
+                                            @if (!p.Products.Last().Name.Equals(product.Name))
+                                            {
+                                                @Html.Raw(", ")
+                                            }
+                                            else
+                                            {
+                                                @Html.Raw(".")
+                                            }
+                                        }
+                                    </small>
+                                </p>
+                                <p class="card-text"><small class="text-muted">Op te halen tot: @p.EndTime.ToString("dd-MM-yyyy HH:mm")</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    }
+</body>
+</html>

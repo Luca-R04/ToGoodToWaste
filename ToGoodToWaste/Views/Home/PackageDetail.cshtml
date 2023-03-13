@@ -1,0 +1,73 @@
+﻿@model Package
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@Model.Name</title>
+    <link rel="stylesheet" href="~/css/DetailsStyle.css">
+    <link rel="stylesheet" href="~/css/NavStyle.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main_nav" aria-expanded="false" aria-label="Toggle navigation">
+                <img src="~/Images/Burger.png" class="profile" alt="Menu">
+            </button>
+            <div class="collapse navbar-collapse" id="main_nav">
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link  dropdown-toggle" href="#" data-bs-toggle="dropdown">  Navigatie  </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" asp-controller="Home" asp-action="Location">Locatie</a></li>
+                            <li><a class="dropdown-item" asp-controller="Home" asp-action="Package">Producten</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                    <a class="profile" asp-controller="Home" asp-action="UserPage"><img src="~/Images/userIcon.png" class="profile" style="width: 25px"></a>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-5 col-md-5 col-sm-6 pt-5">
+                        <div class="white-box text-center"><img src="@Model.Image" class="img-responsive" style="width: 100%;"></div>
+                    </div>
+                    <div class="col-lg-7 col-md-7 col-sm-6">
+                        <h4 class="box-title mt-5">@Model.Name</h4>
+                        <p class="product-description">Op te halen vanaf: @Model.PickupTime</p>
+                        <p class="product-description">Op te halen tot: @Model.EndTime</p>
+                        <p class="product-description">Op te halen in: @Model.City, @Model.Canteen.Location.Building.</p>
+                        <h3 class="box-title mt-2">Producten:</h3>
+                        <ul class="list-unstyled mb-0">
+                            @foreach (var product in Model.Products)
+                            {
+                                <li>
+                                    <div class="productDetails">
+                                        <img src="@product.Image">
+                                        <p>@product.Name</p>
+                                    </div>
+                                </li>
+                                <br />
+                            }
+                        </ul>
+                        <h3 class="pb-2">€ @Model.Price</h3>
+                        <a class="place-order btn" type="button" asp-action="Confirmation" asp-route-id="@Model.PackageId" style="float: left;">Reserveren</a>
+                        @if (Model.ForAdult)
+                        {
+                            <img src="~/Images/AgeRestriction.png" style="width: 35px;">
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

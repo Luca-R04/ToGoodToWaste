@@ -1,0 +1,43 @@
+﻿<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bevestiging</title>
+    <link rel="stylesheet" href="~/css/ConfirmationStyle.css">
+</head>
+<body>
+    <div class="container">
+        <div class="item-container">
+            @if (ViewBag.Succes.Equals("Deleted"))
+            {
+                <img src="~/Images/succesful.png">
+                <p class="text-center">Het pakket is succesvol verwijderd.</p>
+            }
+            else if (ViewBag.Succes.Equals("Edited"))
+            {
+                <img src="~/Images/succesful.png">
+                <p class="text-center">Het pakket is aangepast.</p>
+            }
+            else if (ViewBag.Succes.Equals("Package already reserved"))
+            {
+                <img src="~/Images/failed.png">
+                <p class="text-center">Dit pakket is al gereserveerd.</p>
+            }
+            else if (ViewBag.Succes.Equals("PriceNot"))
+            {
+                <img src="~/Images/failed.png">
+                <p class="text-center">Geen juiste waarde voor pijs.</p>
+            }
+            else
+            {
+                <img src="~/Images/failed.png">
+                <p class="text-center">Er is iets mis gegaan, probeer het later opnieuw.</p>
+            }
+            <a class="homeButton btn btn-default" type="button" asp-controller="Admin" asp-action="Select">Home</a>
+        </div>
+    </div>
+</body>
+</html>

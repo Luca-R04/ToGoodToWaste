@@ -1,0 +1,48 @@
+﻿<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bevestiging</title>
+    <link rel="stylesheet" href="~/css/ConfirmationStyle.css">
+</head>
+<body>
+    <div class="container">
+        <div class="item-container">
+            @if (ViewBag.Succes.Equals("Succes"))
+            {
+                <img src="~/Images/succesful.png">
+                <p class="text-center">Je pakket is succesvol gereserveerd.</p>
+            }
+            else if (ViewBag.Succes.Equals("SameDayExisting"))
+            {
+                <img src="~/Images/failed.png">
+                <p class="text-center">Je hebt al een pakket op deze dag gereserveerd.</p>
+            }
+            else if (ViewBag.Succes.Equals("Occupied"))
+            {
+                <img src="~/Images/failed.png">
+                <p class="text-center">Pakket is al gereserveerd door een andere student.</p>
+            }
+            else if (ViewBag.Succes.Equals("NoPackage"))
+            {
+                <img src="~/Images/failed.png">
+                <p class="text-center">Pakket is helaas niet meer beschikbaar.</p>
+            }
+            else if (ViewBag.Succes.Equals("AgeLimit"))
+            {
+                <img src="~/Images/failed.png">
+                <p class="text-center">Dit pakket is niet beschikbaar voor gebruikers onder de 18.</p>
+            }
+            else
+            {
+                <img src="~/Images/failed.png">
+                <p class="text-center">Er is iets mis gegaan, probeer het later opnieuw.</p>
+            }
+            <a class="homeButton btn btn-default" type="button" asp-controller="home" asp-action="Location">Home</a>
+        </div>
+    </div>
+</body>
+</html>
